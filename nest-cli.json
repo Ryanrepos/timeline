@@ -1,8 +1,32 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/timeline-api/src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/timeline-api/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/timeline-api",
+  "projects": {
+    "timeline": {
+      "type": "application",
+      "root": "apps/timeline-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/timeline-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/timeline-api/tsconfig.app.json"
+      }
+    },
+    "timeline-batch": {
+      "type": "application",
+      "root": "apps/timeline-batch",
+      "entryFile": "main",
+      "sourceRoot": "apps/timeline-batch/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/timeline-batch/tsconfig.app.json"
+      }
+    }
   }
 }
