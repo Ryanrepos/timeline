@@ -10,7 +10,7 @@
   "monorepo": true,
   "root": "apps/timeline-api",
   "projects": {
-    "timeline": {
+    "timeline-api": {
       "type": "application",
       "root": "apps/timeline-api",
       "entryFile": "main",
