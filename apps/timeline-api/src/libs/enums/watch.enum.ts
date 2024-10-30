@@ -57,5 +57,5 @@ export enum WatchLocation {
 	JEJU = 'JEJU',
 }
 registerEnumType(WatchLocation, {
-	name: 'PropertyLocation',
+	name: 'WatchLocation',
 });

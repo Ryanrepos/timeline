@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { WatchCategory, WatchLocation, WatchStatus } from '../libs/enums/watch.enum';
+import { WatchBrand, WatchCategory, WatchLocation, WatchStatus } from '../libs/enums/watch.enum';
 
 const WatchSchema = new Schema(
 	{
@@ -18,6 +18,12 @@ const WatchSchema = new Schema(
 		watchLocation: {
 			type: String,
 			enum: WatchLocation,
+			required: true,
+		},
+
+        watchBrand: {
+			type: String,
+			enum: WatchBrand,
 			required: true,
 		},
 
@@ -88,7 +94,7 @@ const WatchSchema = new Schema(
 			type: Date,
 		},
 	},
-	{ timestamps: true, collection: 'properties' },
+	{ timestamps: true, collection: 'watches' },
 );
 
 WatchSchema.index({ watchCategory: 1, watchLocation: 1, watchTitle: 1, watchPrice: 1 }, { unique: true });
