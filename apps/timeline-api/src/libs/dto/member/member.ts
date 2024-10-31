@@ -37,7 +37,7 @@ export class Member {   	// data coming from database to frontend
 	memberDesc?: string;
 
 	@Field(() => Int)
-	memberProperties: number;
+	memberWatches: number;
 
 	@Field(() => Int)
 	memberArticles: number;
