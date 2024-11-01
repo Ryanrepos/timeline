@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import memberSchema from '../../schemas/Member.model';
 import { AuthService } from '../auth/auth.service';
 import { AuthModule } from '../auth/auth.module';
+import { ViewModule } from '../view/view.module';
 
 @Module({
 	imports: [MongooseModule.forFeature([
@@ -13,7 +14,7 @@ import { AuthModule } from '../auth/auth.module';
 			schema: memberSchema,
 		}
 	]), 
-  AuthModule,
+  AuthModule, ViewModule,
 	// MongooseModule.forFeature([
 	// 	{
 	// 		name: 'Follow',

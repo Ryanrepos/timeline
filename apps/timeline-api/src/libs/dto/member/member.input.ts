@@ -1,6 +1,7 @@
-import { Field, InputType } from "@nestjs/graphql";
-import { IsNotEmpty, IsOptional, Length } from "class-validator";
-import { MemberAuthType, MemberType } from "../../enums/member.enum";
+import { Field, InputType, Int } from "@nestjs/graphql";
+import { IsIn, IsNotEmpty, IsOptional, Length, Min } from "class-validator";
+import { MemberAuthType, MemberStatus, MemberType } from "../../enums/member.enum";
+import { Direction } from "../../enums/common.enum";
 
 @InputType()
 export class MemberInput {   // data entering server 
@@ -43,4 +44,81 @@ export class LoginInput {
 	@Length(3, 12)
 	@Field(() => String)
 	memberPassword: string;
+}
+
+@InputType()
+export class AISearch {
+	@IsOptional()
+	@Field(() => String, { nullable: true })
+	text?: string;
+}
+
+// pagination logic
+
+@InputType()
+export class SellersInquiry {
+	@IsNotEmpty()
+	@Min(1)
+	@Field(() => Int)
+	page: number;
+
+	@IsNotEmpty()
+	@Min(1)
+	@Field(() => Int)
+	limit: number;
+
+	@IsOptional()
+	// @IsIn(availableAgentSorts)
+	@Field(() => String, { nullable: true })
+	sort?: string;
+
+	@IsOptional()
+	@Field(() => Direction, { nullable: true })
+	direction?: Direction;
+
+	@IsNotEmpty()
+	@Field(() => AISearch)
+	search: AISearch;
+}
+
+@InputType()
+export class MISearch {
+	
+	@IsOptional()
+	@Field(() => MemberStatus, {nullable: true})
+	memberStatus?: MemberStatus;
+
+	@IsOptional()
+	@Field(() => MemberType, {nullable: true})
+	memberType?: MemberType;
+
+	@IsOptional()
+	@Field(() => String, { nullable: true })
+	text?: string;
+}
+
+@InputType()
+export class MembersInquiry {
+	@IsNotEmpty()
+	@Min(1)
+	@Field(() => Int)
+	page: number;
+
+	@IsNotEmpty()
+	@Min(1)
+	@Field(() => Int)
+	limit: number;
+
+	@IsOptional()
+	// @IsIn(availableMemberSorts)
+	@Field(() => String, { nullable: true })
+	sort?: string;
+
+	@IsOptional()
+	@Field(() => Direction, { nullable: true })
+	direction?: Direction;
+
+	@IsNotEmpty()
+	@Field(() => MISearch)
+	search: MISearch;
 }

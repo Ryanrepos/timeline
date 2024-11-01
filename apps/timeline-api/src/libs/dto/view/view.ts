@@ -11,10 +11,8 @@ export class View {
 	@Field(() => ViewGroup)
 	viewGroup: ViewGroup;
 
-
 	@Field(() => String)
 	viewRefId: ObjectId;
-
 
 	@Field(() => String)
 	memberId: ObjectId;
