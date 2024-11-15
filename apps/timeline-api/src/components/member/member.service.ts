@@ -8,13 +8,12 @@ import { MemberStatus, MemberType } from '../../libs/enums/member.enum';
 import { AuthService } from '../auth/auth.service';
 import { MemberUpdate } from '../../libs/dto/member/member.update';
 import { promises } from 'dns';
-import { T } from '../../libs/types/common';
+import { StatisticModifier, T } from '../../libs/types/common';
 import { ViewGroup } from '../../libs/enums/view.enum';
 import { ViewService } from '../view/view.service';
 
 @Injectable()
 export class MemberService {
-
 	constructor(
 		@InjectModel('Member') private readonly memberModel: Model<Member>,
 		private readonly authService: AuthService,
@@ -73,7 +72,7 @@ export class MemberService {
 			)
 			.exec();
 		if (!result) throw new InternalServerErrorException(Message.UPDATE_FAILED);
-        return result;
+		return result;
 	}
 
 	public async getSellers(memberId: ObjectId, input: SellersInquiry): Promise<Members> {
@@ -90,7 +89,9 @@ export class MemberService {
 				{ $sort: sort },
 				{
 					$facet: {
-						list: [{ $skip: (input.page - 1) * input.limit }, { $limit: input.limit }, 
+						list: [
+							{ $skip: (input.page - 1) * input.limit },
+							{ $limit: input.limit },
 							// lookupAuthMemberLiked(memberId),
 						],
 						metaCounter: [{ $count: 'total' }],
@@ -133,5 +134,12 @@ export class MemberService {
 		const result: Member = await this.memberModel.findOneAndUpdate({ _id: input._id }, input, { new: true }).exec();
 		if (!result) throw new InternalServerErrorException(Message.UPDATE_FAILED);
 		return result;
+	}
+
+	public async memberStatsEditor(input: StatisticModifier): Promise<Member> {
+		console.log('executed');
+		const { _id, targetKey, modifier } = input;
+
+		return await this.memberModel.findByIdAndUpdate(_id, { $inc: { [targetKey]: modifier }}, {new: true}).exec();
 	}
 }

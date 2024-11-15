@@ -8,7 +8,7 @@ import { ObjectId } from "mongoose";
 export class WatchInput {
     @IsNotEmpty()
 	@Field(() => WatchCategory)
-	watchType: WatchCategory;
+	watchCategory: WatchCategory;
 
     @IsNotEmpty()
 	@Field(() => WatchBrand)
@@ -44,10 +44,6 @@ export class WatchInput {
 	@IsOptional()
 	@Field(() => Boolean, { nullable: true })
 	watchBarter?: boolean;
-
-	// @IsOptional()
-	// @Field(() => Boolean, { nullable: true })
-	// propertyRent?: boolean;
 
 	memberId?: ObjectId;
 
